@@ -1,3 +1,13 @@
+import Profile from './Profile/Profile';
+import Statistics from './Statistics/Statistics';
+import FriendList from './FriendList/FriendList';
+import TransactionHistory from './TransactionHistory/TransactionHistory';
+
+import user from './user.json';
+import dataStatistics from '../components/dataStatistics.json';
+import friends from '../components/friends.json';
+import transactions from '../components/transactions.json';
+
 export const App = () => {
   return (
     <div
@@ -7,10 +17,24 @@ export const App = () => {
         justifyContent: 'center',
         alignItems: 'center',
         fontSize: 40,
-        color: '#010101'
+        color: '#010101',
+        flexWrap: 'wrap',
+        padding: '100px',
+        gap: '10px',
       }}
     >
-      React homework template
+      <Profile
+        username={user.username}
+        tag={user.tag}
+        location={user.location}
+        avatar={user.avatar}
+        stats={user.stats}
+      ></Profile>
+      <Statistics title="Upload stats" stats={dataStatistics} />
+      <Statistics stats={dataStatistics} />
+      <FriendList friends={friends} />
+
+      <TransactionHistory items={transactions} />
     </div>
   );
 };
