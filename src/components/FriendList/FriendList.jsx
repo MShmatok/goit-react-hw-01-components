@@ -7,7 +7,14 @@ import { Container } from './FriendList.styled';
 const FriendList = ({ friends }) => {
   return (
     <Container>
-      <FriendListItem friends={friends}></FriendListItem>
+      {friends.map(friend => (
+        <FriendListItem
+          key={friend.id}
+          avatar={friend.avatar}
+          name={friend.name}
+          isOnline={friend.isOnline}
+        />
+      ))}
     </Container>
   );
 };
@@ -15,5 +22,12 @@ const FriendList = ({ friends }) => {
 export default FriendList;
 
 FriendList.propTypes = {
-  friends: PropTypes.array.isRequired,
+  friends: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      avatar: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      isOnline: PropTypes.bool.isRequired,
+    })
+  ).isRequired,
 };

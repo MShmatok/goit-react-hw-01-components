@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Transaction from './Transaction';
-import { TransactionHistoryStyle } from './TransactionHistory.styled';
+import {
+  TransactionHistoryStyle,
+  TransactionStyle,
+} from './TransactionHistory.styled';
 
 const TransactionHistory = ({ items }) => {
   return (
@@ -16,7 +18,13 @@ const TransactionHistory = ({ items }) => {
       </thead>
 
       <tbody>
-        <Transaction items={items} />
+        {items.map(trans => (
+          <TransactionStyle key={trans.id}>
+            <td>{trans.type}</td>
+            <td>{Number(trans.amount)}</td>
+            <td>{trans.currency}</td>
+          </TransactionStyle>
+        ))}
       </tbody>
     </TransactionHistoryStyle>
   );
@@ -25,5 +33,12 @@ const TransactionHistory = ({ items }) => {
 export default TransactionHistory;
 
 TransactionHistory.propTypes = {
-  items: PropTypes.array.isRequired,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      amount: PropTypes.string.isRequired,
+      currency: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
